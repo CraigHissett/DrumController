@@ -9,7 +9,8 @@ int table[]={0,0}; //the data will be transmited via table as to allow different
 
 void setup()
 {
-  Wire.begin();   
+  Wire.begin();
+  Serial.begin(9600); 
 }
 
 void loop()
@@ -25,12 +26,13 @@ void loop()
     int c = Wire.read(); // receive a byte as character
   table[i]=c;
   }
-
+  Serial.println(table[0]);
   if(table[0] != 0){
     sendNote(0, table[0], table[1]);
   }
   // Flush the output.
   USBMIDI.flush();
+  delay(100);
 }
 
 void sendNote(uint8_t channel, uint8_t note, uint8_t velocity) {
